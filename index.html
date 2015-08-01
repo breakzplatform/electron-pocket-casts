@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Uber</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        
+        #foo {
+            width: 800px;
+            height: 580px;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <webview id="foo" src="https://m.uber.com/"></webview>
+    <script>
+        navigator.geolocation.getCurrentPosition(function success(position) {
+            lled
+        }, function error(error) {
+            alert("n");
+            // never called
+        });
+    </script>
+</body>
+
+</html>
