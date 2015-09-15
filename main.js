@@ -16,25 +16,34 @@ app.on('window-all-closed', function () {
         app.quit();
     }
 });
-
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 app.on('ready', function () {
     // Create the browser window.
     mainWindow = new BrowserWindow({
-        'width': 800,
-        'height': 600,
-        'web-preferences': {
-            'web-security': false
+        'width': 1024,
+        'height': 720,
+        'node-integration': false,
+        "web-preferences": {
+            "web-security": false,
+            "allow-running-insecure-content": true,
+            "allow-displaying-insecure-content": true,
+            "allow_displaying_insecure_content": true
         }
     });
 
+    mainWindow.webContents.on('did-start-loading', function () {
+        mainWindow.webContents.executeJavaScript("$(window).keypress(function(e){0===e.keyCode||32===e.keyCode?$('.play_pause_button')[0].click():117===e.keyCode?$('.skip_back_button')[0].click():118===e.keyCode?$('.play_pause_button')[0].click():119===e.keyCode&&$('.skip_forward_button')[0].click()});");
+    });
+
+    app.commandLine.appendSwitch('ignore-certificate-errors', 'true');
     // and load the index.html of the app.
-    mainWindow.loadUrl('file://' + __dirname + '/index.html');
+    //mainWindow.loadUrl('file://' + __dirname + '/index.html');
+    mainWindow.loadUrl('http://play.pocketcasts.com/web');
 
 
     // Open the devtools.
-    //mainWindow.openDevTools();
+    mainWindow.openDevTools();
 
     // Emitted when the window is closed.
     mainWindow.on('closed', function () {
